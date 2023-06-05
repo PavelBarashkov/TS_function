@@ -12,19 +12,12 @@ export class Cart {
     }
 
     getPurchase(): number {
-        let sum: number = 0;
-        this.items.forEach(item => {
-            sum += item.price
-        })
-        return sum;
+        return this.items.reduce((acc, item) => acc + item.price, 0 )
     }
 
     getPurchaseWithDiscount(discount: number): number {
-        let sum: number = 0;
-        this.items.forEach(item => {
-            sum += item.price
-        })
-        let sumDiscount: number = (sum / 100) * discount;
+        const sum = this.getPurchase();
+        let sumDiscount: number = (sum/ 100) * discount;
         let price: number = sum - sumDiscount;
         if (discount >= 100 || !discount) {
             throw new Error('Некорректная скидка')
